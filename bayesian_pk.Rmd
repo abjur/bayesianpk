@@ -1,0 +1,102 @@
+---
+title: A Bayesian Contribution To The Priest And Klein Model
+
+# to produce blinded version set to 1
+blinded: 0
+
+authors: 
+- name: Fernando Correa
+  thanks: The authors gratefully acknowledge the support of the Brazilian Jurimetrics Association for the support of this research.
+  affiliation: Department of Statistics, University of São Paulo
+  
+- name: Julio Trecenti
+  affiliation: Department of Statistics, University of São Paulo
+  
+- name: Milene Farhat
+  affiliation: Department of Statistics, University of São Paulo
+
+keywords:
+- jurimetrics, selection, litigation
+
+abstract: |
+  The text of your abstract.  200 or fewer words.
+
+bibliography: bibliography.bib
+output: rticles::asa_article
+---
+
+# Introduction
+
+[@priest1984selection] is one of the most influencial legal publications. Recently, it's importance is growing as the field of jurimetrics [@loevinger1963jurimetrics], the empirical analysis of the law, is becoming larger. \par
+  The paper states that the distributions of lawsuit's characteristics is not the same as the distribution of dispute's characteristics. Under some efficiency assumptions, plaintiffs and defendants rationaly choose when to prosecute, ensuring that only highly unpredictable disputes becomes lawsuits. \par
+  The study is important because it gives clues on why we should be careful when analysing court data. As an example, the paper remarkably states that the plaintiff's win rate converge to 50\% as the predictions of the parties become more precise. That said, if the hypothesis is true it's clear that one should not talk about the facts that generated the lawsuits using lawsuit data. \par
+  Because of it's pratical impact, several authors tinkered the original example. The contributions goes in two ways: some authors worked on a mathematical formalization of the arguments [@lee2016priest; @waldfogel1995selection; @shapiro1995most; @hylton2011formalization] and others expanded theoretical assumptions [@gelbach2016reduced; @bernardo2000theory; @shavell1996any; @friedman2006litigation]. It may be surprising that such and old paper is still being mathemiatically formalized and not only expanded, but this fact is due the empirical validity of the results and the seminal discutions on the symmetry of information [@waldfogel1998reconciling]. \par
+  This paper explores all of those discussions with a bayesian flavor. Some earlier work when that way [@lee2016priest], but here we focus on introducing other forms of uncertainty on the decision process and giving the problem a full decision-theoretic approach [@degroot2005optimal].
+
+\section{The classical model}
+
+The original paper doesn't formally prove it's claims because it relies on empirical simulations. This fact implies that the original notation is not perfectly suitable for the discussions proposed in this paper. To proceed with the bayesian modelling of the problem, we'll follow the notations and definitions propose by [@gelbach2016reduced], that it's both precise and loyal to the original setting.
+
+Almost every model for litigation starts with 
+
+- $Q_p$, the probability of plaintiff victory atributed by the plaintiff (possibly random). 
+- $Q_d$, the probability of plaintiff victory atributed by the defendant (possibly random).
+- $c_p$, the cost of litigation for the plaintiff.
+- $c_d$, the cost of litigation for the defendant (possibly null).
+- $s_p$, the cost of pre-processual settlement for the plaintiff.
+- $s_d$, the cost of pre-processual settlement for the defendant.
+- A joint probability distribution on $(Q_p, Q_d)$
+- A bernoulli random variable $\mathcal{L}$ indicating whether or not the ltigation ocurred.
+- A bernoulli random variable $\mathcal{P}$ indicating whether or not the plaintiff won.
+- A litigation rule $L(q_p, q_d) = E[\mathcal{L}|Q_d = q_d, Q_p = q_p]$ that gives the probability of litigation given the parties subjective belief.
+- The probability of win of the plaintiff when the litigation occurred $P(q_d, q_d) = E[\mathcal{P}|\mathcal{L}=1, Q_d = q_d, Q_p = q_p]$
+
+Priest and Klein paper adds some parameters to the usual setting: $J$, $\alpha$, $Y$, $Y_d$ and $Y_p$. $Y$ is a random quantity that indicates the true quality of the case and $Y_d$ and $Y_p$ are noisy approximations of $Y$ that are accessible for the parties. $Y$ and $y^*$ are numerical representations of lawsuit's variability and court decision criterion: if $Y > y^*$, some threshold number defined by the court, the plaintiff wins the case.
+
+Encoding costs to the decision process, $J$ is the expected cost to the defendant if the plaintiff wins and $J_p = \alpha J$ is the benefits for the plaintiff (if she wins). $\alpha$ moderates the stakes. If $\alpha = 1$, the stakes are symmetric, and $\alpha$ $>$ or $<$ than 1 indicates stakes that favors plaintffs and defendants, respectively. 
+
+Two important quantities for the selection of cases for litigation are 
+
+1. Plaintiff's expected win: $q_pJ\alpha-c_p$
+2. Defendant's expected cost: $q_dJ+c_d$
+
+Those quantities are important because [@priest1984selection] states that " $q_pJ\alpha-c_p+s_p > q_dJ+c_d-s_d$ is a sufficient condition for litigation". The intuition behind this statement comes from the description of those quantitites:
+
+1. $q_dJ+c_d-s_d$ is the largest amount the defendant is willing to pay. There's a lawsuit when the plaititff thinks that this number is too small. 
+2. $q_pJ\alpha-c_p+s_p$ is the lowest amount the defendant is willing to receive.  There's a lawsuit when the plaititff defendant thinks that this number is too high. 
+
+[@lee2016priest] claims that [@priest1984selection] uses this condition not only as sufficient but also as a necessary one, altough neither they explictly mention why nor I could find it explictly noted on the original paper. Through this text I'll act as if this was true.
+
+Doing some algebra we get that the litigation condition is equivalent to
+
+$$ q_p > \frac{q_d}{\alpha} +  \frac{c_p + c_d - s_d-s_p}{\alpha J} $$
+
+That will therefore be called Landes-Posner-Gould (LPG) condition, as the authors did.
+
+To follow the demonstrations on the paper, we only need to add probability measures on the setting defined above. Different from [@priest1984selection], here the parties also have opinions on $Y$. The setting may be resumed on a small set of claims:
+
+- $Y \sim N(0,1)$ and $\epsilon_p \sim \epsilon_d \sim N(0,\sigma)$, all independent.
+- $Y_p = Y + \epsilon_p$ and $Y_d = Y + \epsilon_d$.
+- The parties has prior beliefs on $Y$ that are represented by $g_p$ and $g_d$, respectively.
+
+The decision procedures of the parties follows the following steps:
+
+1. Both of them have prior opinions on the probability of a plaitiff's win given by $G_p(Y < y^*)$ and $G_d(Y < y^*)$.
+2. They observe a noisy measure of $Y$, $Y_p$ and $Y_d$.
+3. They updates their prior beliefs using using the normal likelihood and the $g_p$ prior.
+4. Their posteriors, $Y|Y_p = y_p$ and $Y|Y_d=y_d$, produce posetrior probabilities of plaitinff's win, given by $P(Y \leq y^*|Y_i = y_i)$, $i \in \{p,d\}$.
+5. LPG's selects cases for litigation based on the posterior probabilities.
+
+The original paper doesn't tell this story but gives the posterior inferences:
+
+$$ q_p = \Phi\left(\frac{Y_p - y^*}{\sigma}\right) \text{ and }q_d = \Phi\left(\frac{Y_d-y^*}{\sigma}\right)$$
+
+This is equivalent as setting $g_p \propto 1$ on the real line. In this setting, $Y_p ~ N(Y, \sigma)$, with a known $\sigma$, so that the posterior inference on $Y$ is equivalent to doing normal bayesian inference on a sample of size one and a flat prior. This gives us that $Y|Y_p=y_p \sim N(Y_p, \sigma)$, and then $P(Y \leq y^*|Y_i = y_i) = \Phi\left(\frac{y^*-Y_i}{\sigma}\right)$.
+
+\section{Bayesian Extensions}
+
+\label{sec:verify}
+
+
+
+
