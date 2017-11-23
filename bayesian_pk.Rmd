@@ -27,7 +27,7 @@ output: rticles::asa_article
 
 # Introduction
 
-[@priest1984selection] is one of the most influencial legal publications. Recently, it's importance is growing as the field of jurimetrics [@loevinger1963jurimetrics], the empirical analysis of the law, is becoming larger. \par
+[@priest1984selection] is one of the most influencial legal publications. Recently, its importance has grown as the field of jurimetrics [@loevinger1963jurimetrics], the empirical analysis of the law, is becoming larger. \par
   The paper states that the distributions of lawsuit's characteristics is not the same as the distribution of dispute's characteristics. Under some efficiency assumptions, plaintiffs and defendants rationaly choose when to prosecute, ensuring that only highly unpredictable disputes becomes lawsuits. \par
   The study is important because it gives clues on why we should be careful when analysing court data. As an example, the paper remarkably states that the plaintiff's win rate converge to 50\% as the predictions of the parties become more precise. That said, if the hypothesis is true it's clear that one should not talk about the facts that generated the lawsuits using lawsuit data. \par
   Because of it's pratical impact, several authors tinkered the original example. The contributions goes in two ways: some authors worked on a mathematical formalization of the arguments [@lee2016priest; @waldfogel1995selection; @shapiro1995most; @hylton2011formalization] and others expanded theoretical assumptions [@gelbach2016reduced; @bernardo2000theory; @shavell1996any; @friedman2006litigation]. It may be surprising that such and old paper is still being mathemiatically formalized and not only expanded, but this fact is due the empirical validity of the results and the seminal discutions on the symmetry of information [@waldfogel1998reconciling]. \par
@@ -37,10 +37,12 @@ output: rticles::asa_article
 
 The original paper doesn't formally prove it's claims because it relies on empirical simulations. This fact implies that the original notation is not perfectly suitable for the discussions proposed in this paper. To proceed with the bayesian modelling of the problem, we'll follow the notations and definitions propose by [@gelbach2016reduced], that it's both precise and loyal to the original setting.
 
-Almost every model for litigation starts with 
+Every dispute has a case merit $Y$ that represents the case facts. It has some distribution $g_Y(y)$ that resumes the variation of disputes. If $Y$ is larger than some fixed legal standard $y^*$, then the plaintiff wins. If it's smaller than $y^*$, then the defendant wins.
 
-- $Q_p$, the probability of plaintiff victory atributed by the plaintiff (possibly random). 
-- $Q_d$, the probability of plaintiff victory atributed by the defendant (possibly random).
+The selection of disputes for litigation comes from the decision making of the parties, based on noisy measures of $Y$ ($y^*$ is assumed to be known). The original model assumes that the plaintiff and the defendant acesses the case merit with the independent random variables $Y_p|Y \sim N(Y, \sigma)$ and $Y_d|Y \sim N(Y, \sigma)$. 
+
+- $Q_p$, the probability of plaintiff victory atributed by the plaintiff. 
+- $Q_d$, the probability of plaintiff victory atributed by the defendant.
 - $c_p$, the cost of litigation for the plaintiff.
 - $c_d$, the cost of litigation for the defendant (possibly null).
 - $s_p$, the cost of pre-processual settlement for the plaintiff.
