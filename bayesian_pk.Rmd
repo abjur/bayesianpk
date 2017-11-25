@@ -19,7 +19,7 @@ keywords:
 - jurimetrics, selection, litigation
 
 abstract: |
-  [@priest1984selection] is one of the most influencial legal publications of all time. The authors states that the distribution of lawsuits is not the same as the distribution of disputes. Under efficiency assumptions, plaintiffs and defendants rationaly choose when to prosecute, ensuring that only highly unpredictable disputes becomes lawsuits. Because of its empirical importance, several authors worked through the original example with various interests. Some authors worked on a mathematical formalization of the arguments [@lee2016priest; @waldfogel1995selection; @shapiro1995most; @hylton2011formalization] and others expanded theoretical assumptions [@gelbach2016reduced; @bernardo2000theory; @shavell1996any; @friedman2006litigation]. This paper explores these discussions with a bayesian flavor. We defined a natural way to consider other sources of variation to the selection process, made some earlier assumptions explicit and provided empirical validation for our suggestions.
+  [@priest1984selection] is one of the most influencial legal publications of all time. The authors states that the distribution of lawsuits is not the same as the distribution of disputes. Under efficiency and simmetry assumptions, plaintiffs and defendants rationally choose when to prosecute, ensuring that only highly unpredictable disputes becomes lawsuits. Because of its empirical importance, several authors worked through the original example with many interests. Some authors worked on a mathematical formalization of the arguments [@lee2016priest; @waldfogel1995selection; @shapiro1995most; @hylton2011formalization] and others expanded theoretical assumptions [@gelbach2016reduced; @bernardo2000theory; @shavell1996any; @friedman2006litigation]. This paper explores these discussions in a Bayesian flavor. We defined a natural way to consider other sources of variation to the selection process, made the assumptions explicit and provided empirical validation for our suggestions.
 
 bibliography: bibliography.bib
 output: rticles::asa_article
@@ -27,11 +27,11 @@ output: rticles::asa_article
 
 # Introduction
 
-[@priest1984selection] is one of the most influential legal publications. Recently, its importance has grown as the field of jurimetrics [@loevinger1963jurimetrics], the empirical analysis of the law, is becoming larger. \par
-  The authors states that the distribution of lawsuit's characteristics is not the same as the distribution of dispute's characteristics. Under some efficiency assumptions, plaintiffs and defendants rationally choose when to prosecute, ensuring that only highly unpredictable disputes becomes lawsuits. \par
-  Because of this selection bias, one should be careful when analyzing court data. As an example, one of the most remarkable statements is that the plaintiff's win rate converge to 50\% as the predictions of the parties become more precise. That said, if the hypothesis is true, we should not talk about the facts that generated the lawsuits using lawsuit data, because otherwise we could end up with the same conclusion on various subjects. \par
-  Several imprecisions on the original paper motivated several authors to work through the model. Some authors worked on a mathematical formalization of the arguments [@lee2016priest; @waldfogel1995selection; @shapiro1995most; @hylton2011formalization] and others expanded theoretical assumptions [@gelbach2016reduced; @bernardo2000theory; @shavell1996any; @friedman2006litigation]. It may be surprising that such and old paper is still being mathematically formalized and not only expanded, but this is due the empirical validity of the results and the seminal discussions on the symmetry of information [@waldfogel1998reconciling]. \par
-  This paper explores these discussions with a Bayesian flavor. We expand earlier works [@lee2016priest] giving the problem a full decision-theoretic approach [@degroot2005optimal]. Doing this, we defined a natural way to consider other sources of variation to the selection process, made some earlier assumptions explicit and provided empirical validation for our suggestions.
+[@priest1984selection] is one of the most influential legal publications. Recently, its importance has grown as the field of jurimetrics [@loevinger1963jurimetrics], the empirical analysis of the law increases in popularity. \par
+  The authors states that the distribution of lawsuit's characteristics is not the same as the distribution of dispute's characteristics. Under efficiency assumptions, plaintiffs and defendants rationally choose when to prosecute, ensuring that only disputes become lawsuits when they disagree in their predictions about the case. \par
+  Because of this selection bias, one should be careful when analyzing courts and judges decisions. As an example, one of the most remarkable statements is that the plaintiff's win rate converge to 50\% as the predictions of the parties become more precise. That said, if the hypothesis is true, we should not talk about the facts that generated the lawsuits using lawsuit data, because otherwise we could end up with the same conclusion on various subjects. \par
+  Imprecisions on the original paper motivated several authors to work through the model. Some authors worked on a mathematical formalization of the arguments [@lee2016priest; @waldfogel1995selection; @shapiro1995most; @hylton2011formalization] and others expanded theoretical assumptions [@gelbach2016reduced; @bernardo2000theory; @shavell1996any; @friedman2006litigation]. It may be surprising that such and old paper is still being mathematically formalized and not only expanded. This is due the empirical validity of the results and the seminal discussions on the symmetry of information [@waldfogel1998reconciling]. \par
+  This paper explores these discussions in a Bayesian flavor. We expand earlier works [@lee2016priest] giving the problem a full decision-theoretic approach [@degroot2005optimal]. Doing this, we defined a natural way to consider other sources of variation to the selection process, made some earlier assumptions explicit and provided empirical validation for our suggestions.
 
 \section{A Bayesian look on the classical model}
 
@@ -39,22 +39,22 @@ output: rticles::asa_article
 
 \subsection{The decision process}
 
-Every dispute has a case merit $Y$ that represents the case facts. It has some distribution $g(y)$ that resumes the variation of disputes. If $Y$ is larger than some fixed legal standard $y^*$, then the plaintiff wins. If it's smaller than $y^*$, then the defendant wins.
+Every dispute has a case merit $Y$ that represents the case reality. It has some distribution $g(y)$ that resumes the variation of disputes. If $Y$ is larger than some fixed legal standard $y^*$, then the plaintiff wins. If it's smaller than $y^*$, then the defendant wins. In our setting, $y^*$ is assumed to be known.
 
-The selection of disputes for litigation comes from the decision making of the parties, based on noisy measures of $Y$ ($y^*$ is assumed to be known). The original model assumes that the plaintiff and the defendant accesses the case merit with the conditionally independent random variables $Y_p|Y \sim N(Y, \sigma)$ and $Y_d|Y \sim N(Y, \sigma)$.
+The selection of disputes for litigation comes from the decision making of the parties, based on noisy measures of $Y$. The original model assumes that the plaintiff $p$ and the defendant $d$ accesses the case merit with the conditionally independent random variables $Y_p|Y \sim N(Y, \sigma)$ and $Y_d|Y \sim N(Y, \sigma)$, respectively.
 
-The parties _knows_ that their noisy measurements are normally distributed and proceed computing their expected probabilities of winning an eventual litigation. On the classical setting, the posterior probabilities of the plaintiff's win is given by:
+The parties _know_ that their noisy measurements are normally distributed and proceed computing their expected probabilities of winning an eventual litigation. On the classical setting, the posterior probabilities of the plaintiff's win is given by:
 
 $$ q_p = \Phi\left(\frac{Y_p - y^*}{\sigma}\right) \text{ and }q_d = \Phi\left(\frac{Y_d-y^*}{\sigma}\right).$$
 
 Before the decision process the parties define the expected cost of settlement and the expected cost of litigation. The usual setting consider the following inputs:
 
-- $c_p$, the fixed cost of litigation for the plaintiff.
-- $c_d$, the fixed cost of litigation for the defendant (possibly null).
+- $c_p$, the fixed cost of litigation for the plaintiff (possibly null).
+- $c_d$, the fixed cost of litigation for the defendant (also possibly null).
 - $s_p$, the fixed cost of a settlement for the plaintiff.
 - $s_d$, the fixed cost of a settlement for the defendant.
 - $J$, the expected cost of the defendant if the plaintiff wins
-- $J_p = \alpha J$, $\alpha \in [0,1]$, the benefits for the plaintiff if the defendant loses.
+- $J_p = \alpha J$, $\alpha \in [0,1]$, the benefits for the defendant if the plaintiff loses.
 
 The expected cost/losses are defined as:
 
@@ -70,7 +70,7 @@ After an implicit decision process, the literature accepts that $q_pJ\alpha-c_p+
 1. $q_dJ+c_d-s_d$ is the largest amount the defendant is willing to pay in a settlement. 
 2. $q_pJ\alpha-c_p+s_p$ is the lowest amount the plaintiff is willing to receive in a settlement. 
 
-Doing some algebra we get that the litigation condition is equivalent to
+Doing some algebra we have that the litigation condition is equivalent to
 
 $$ q_p - \frac{q_d}{\alpha}>  +  \frac{c_p + c_d - s_d-s_p}{\alpha J}, $$
 
