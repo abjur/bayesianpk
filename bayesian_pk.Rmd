@@ -70,7 +70,7 @@ After an implicit decision process, the literature accepts that $q_pJ\alpha-c_p+
 1. $q_dJ+c_d-s_d$ is the largest amount the defendant is willing to pay in a settlement. 
 2. $q_pJ\alpha-c_p+s_p$ is the lowest amount the plaintiff is willing to receive in a settlement. 
 
-Doing some algebra we have that the litigation condition is equivalent to
+With some algebra we have that the litigation condition is equivalent to
 
 $$ q_p - \frac{q_d}{\alpha}>  +  \frac{c_p + c_d - s_d-s_p}{\alpha J}, $$
 
@@ -82,7 +82,7 @@ The LPG framework is important because it implies important empirical statements
 
 1. Disputes selected for litigation (as opposed to settlement) will not constitute a random sample nor a representative sample of all disputes.
 
-2. As the parties error diminishes and the litigation rates declines, the proportion of plaintiff victories approaches 50%.
+2. As the parties prediciton error diminishes and the litigation rates declines, the proportion of plaintiff victories approaches 50%.
 
 3. Regardless of legal standard, the plaintiff trial win rate exhibit "a strong bias toward fifty percent" as compared to the plaintiff trial win rate that would be observed if every case went to trial.
 
@@ -90,7 +90,7 @@ The LPG framework is important because it implies important empirical statements
 
 5. The plaintiff trial win rate will be unrelated to the shape of the distribution of disputes. This hypothesis is about the plaintiff win rate in the limit as the parties become increasingly accurate in predicting trial outcomes. 
 
-6. Because selection effects are strong, no inferences can be made about the law or legal decision makers from the plaintiff win rate. Rather, "the proportion of observed plaintiff victories will tend to remains constant".
+6. Because selection effects are strong, no inferences can be made about the law or legal decision makers from the plaintiff win rate. Rather, "the proportion of observed plaintiff victories will tend to remain constant".
 
 \section{A Bayesian Look}
 
@@ -98,7 +98,7 @@ The decision making that leads to the LPG condition might be formulated as follo
 
 - \textbf{Assumption 1} The parties assume conditionally independent normally distributed measurements $Y_p| \sim N(Y, \sigma)$ and $Y_d|\sim N(Y, \sigma)$. 
 - \textbf{Assumption 2} The priors on $Y$ are independent and flat.
-- \textbf{Assumption 3} Both the parties knows $y^*$, with no uncertainty.
+- \textbf{Assumption 3} Both the parties know $y^*$, with no uncertainty.
 - \textbf{Assumption 4} The decision process that results in settlements or litigation has two steps. First, the plaintiff proposes a settlement value for the defendant. Second, the defendant accept or rejects the offer, based on his beliefs and $Y_d$. The acceptance of rejection of the defendant is what defines the litigation.
 - \textbf{Assumption 5} The costs of settlement, litigation and payoffs are fixed and known by both parties, with no uncertainty.
 - \textbf{Assumption 6} The plaintiff decides for a settlement value offer $v$ that is the Bayes decision using the loss $L_p(v, y) = (v-\left(I(y < y^*)J - c_p + s_p\right))^2$.  
@@ -106,4 +106,4 @@ The decision making that leads to the LPG condition might be formulated as follo
 
 Some of those assumptions, like assumption 2 and 1, are very restrictive from a Bayesian point of view. In this paper we look forward to relax some requirements of the original setting and obtaining generalized versions of the original results. \par
 
-Assumption 3, for example, maybe replaced  with another one that defines a noisy measurement of $y^*$. This produces a generalized version of the second result defined above.
+Assumption 3, for example, may be replaced  with another one that defines a noisy measurement of $y^*$. This produces a generalized version of the second result defined above.
