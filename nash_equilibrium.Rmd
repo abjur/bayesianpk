@@ -1,0 +1,104 @@
+---
+title: The Game of Priest and Klein
+
+# to produce blinded version set to 1
+blinded: 0
+
+authors: 
+- name: Fernando Correa
+  thanks: The authors gratefully acknowledge the support of the Brazilian Jurimetrics Association for the support of this research.
+  affiliation: Department of Statistics, University of São Paulo
+  
+- name: Julio Trecenti
+  affiliation: Department of Statistics, University of São Paulo
+  
+- name: Milene Farhat
+  affiliation: Department of Statistics, University of São Paulo
+
+keywords:
+- jurimetrics, selection, litigation
+
+abstract: |
+  The results obtained by Priest and Klein on 1984 may be interpreted as a game of two players.
+
+bibliography: bibliography.bib
+output: rticles::asa_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# A omissão de Priest & Klein
+
+A condição LPG para o litígio define que a acusação e a defesa litigam apenas no caso em que as suas expectativas sobre o ganho são diferentes. Isso pressupõe que existe um canal de negociação entre as duas partes.
+
+É possível definir esse jogo de tal forma que a condição LPG defina a existência de um equilíbro em que há litígio.
+
+## O jogo
+
+A negociação anterior ao eventual litígio pode ser modelada como um jogo jogado da seguinte forma:
+
+1. A acusação apresenta à defesa uma certa proposta $v$.
+2. A defesa aceita (escolhe $d=1$) ou rejeita (escolhe $d=0$) a proposta $v$.
+3. Se $d=1$, a acusação inicia um litígio.
+
+Nesse contexto, a função de utilidade da acusação é dada por
+ 
+$$U_p = d(v-s_p) + (1-d)\mathbb{I}(y_p < y^*)(J-c_p).$$
+
+A função de utilidade da defesa analogamente é dada por
+
+$$U_d = -d(v+s_d)-(1-d)\mathbb{I}(y_d < y^*)(J+c_d)$$
+As utilidades esperada, então, são dadas por:
+
+$$\mathbb{E}[U_p] = d(v-s_p) + (1-d)q_p(J-c_p)$$
+
+$$\mathbb{E}[U_d] = -d(v+s_d) - (1-d)q_p(J+c_d)$$
+## O equilíbrio de Nash
+
+Pode-se visualizar as utilidades esperadas em função de $v$ e de $d$ em um gráfico como este abaixo.
+
+```{r, echo = FALSE, warning = FALSE, comment = FALSE, error = FALSE}
+library(tidyverse)
+
+s_p = 1
+s_d = 2.3
+c_p = 1.9
+c_d = 2.1
+q_p = 0.5
+q_d = 0.5
+J = 5
+
+utilidade_p <- function(v, d){
+  d*(v-s_p) + (1-d)*q_p*(J - c_p)
+}
+
+utilidade_d <- function(v, d){
+  (-d)*(v+s_d) - (1-d)*q_d*(J+c_d)
+}
+
+nome_grafico <- sprintf("s_p = %s, s_d = %s, c_p = %s, c_d = %s, J = %s, q_p = q_d = %s", s_p, s_d, c_p, c_d, J, q_p)
+
+v = rep(seq(0, 3, by = 0.5), 2)
+d = rep(c(0,1), length(v)/2)
+d <- tibble(v, d) %>% 
+  mutate(up = utilidade_p(v, d),
+         ud = utilidade_d(v, d))
+
+d %>% 
+  gather(utilidade, valor, up, ud) %>% 
+  mutate(d = factor(d)) %>% 
+  ggplot(aes(x = v, y = valor,
+             colour = utilidade, linetype = d)) +
+  geom_line() +
+  theme_minimal() +
+  scale_x_continuous(breaks = c(0, q_d*(J + c_d) - s_d, q_p*(J-c_p)+s_p, 3),
+                     labels = c('0', 'q_p(J + c_p)-s_d', 'q_d(J-c_d)+s_p', '3')) +
+  scale_y_continuous(breaks = c(q_p*(J-c_p), -q_d*(J+c_d)),
+                     labels = c('q_d(J + c_d)', 'q_p(J-c_p)')) +
+  ggtitle(nome_grafico)
+```
+
+Por essa visualização, identifica-se que, se $q_p(J+c_p)-s_d < q_d(J-c_d)+s_p$, então o equilíbrio de Nash do jogo é $d = 0, v = q_p(J+c_p)-s_d$. Se $q_p(J+c_p)-s_d > q_d(J-c_d)+s_p$, então o equilíbrio de Nash do jogo é $d = 1, v = q_d(J-c_d)+s_p$.
+

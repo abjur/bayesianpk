@@ -94,7 +94,7 @@ The LPG framework is important because it implies important empirical statements
 
 \section{A Bayesian Look}
 
-The decision making that leads to the LPG condition might be formulated as follows:
+Following [@siegelman1995selection], we interpret the Priest and Klein decision model as the following algorithm::
 
 - \textbf{Assumption 1} The parties assume conditionally independent normally distributed measurements $Y_p| \sim N(Y, \sigma)$ and $Y_d|\sim N(Y, \sigma)$. 
 - \textbf{Assumption 2} The priors on $Y$ are independent and flat.
